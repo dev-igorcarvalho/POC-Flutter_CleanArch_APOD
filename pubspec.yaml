@@ -29,6 +29,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  bloc: ^8.0.3
+  flutter_bloc: ^8.0.1
+  get_it: ^7.2.0
+  json_serializable: ^6.2.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -38,13 +42,17 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  lint: ^1.8.2
+  bloc_test: ^9.0.3
+  mocktail: ^0.3.0
+  dependencies:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+#  flutter_lints: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
