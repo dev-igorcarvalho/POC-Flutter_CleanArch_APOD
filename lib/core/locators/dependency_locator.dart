@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
 
 import '../../feature/picture_of_day/data/datasource/picture_of_day_local_storage.dart';
+import '../../feature/picture_of_day/domain/entity/picture_of_day_entity.dart';
 
 final GetIt inject = GetIt.instance;
 
@@ -17,7 +18,7 @@ Future init() async {
 
 Future _initLocalStorage() async {
   await Hive.initFlutter();
-  Box box = await Hive.openBox('APOD');
+  Box<PictureOfDayEntity> box = await Hive.openBox('APOD');
   inject.registerSingleton(box);
 }
 
@@ -29,7 +30,8 @@ void _initCore() {}
 
 void _initModules() {
   inject.registerFactory(() => PictureOfDayApi(Client()));
-  inject.registerFactory(() => PictureOfDayLocalStorage(inject<Box>()));
+  inject.registerFactory(
+      () => PictureOfDayLocalStorage(inject<Box<PictureOfDayEntity>>()));
   inject.registerFactory(() => PictureOfDayRepositoryImpl(
       inject<PictureOfDayLocalStorage>(), inject<PictureOfDayApi>()));
 }
