@@ -18,7 +18,8 @@ Future init() async {
 
 Future _initLocalStorage() async {
   await Hive.initFlutter();
-  Box<PictureOfDayEntity> box = await Hive.openBox('APOD');
+  Hive.registerAdapter(PictureOfDayEntityAdapter());
+  Box<PictureOfDayEntity> box = await Hive.openBox<PictureOfDayEntity>('APOD');
   inject.registerSingleton(box);
 }
 

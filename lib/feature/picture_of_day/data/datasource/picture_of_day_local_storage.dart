@@ -13,7 +13,7 @@ class PictureOfDayLocalStorage
   @override
   Future<List<PictureOfDayEntity>> fetchPicturesFromDateRange(
       {required DateTime startDate, DateTime? endDate}) async {
-    return localStorage.values as List<PictureOfDayEntity>;
+    return localStorage.values.toList();
   }
 
   @override
