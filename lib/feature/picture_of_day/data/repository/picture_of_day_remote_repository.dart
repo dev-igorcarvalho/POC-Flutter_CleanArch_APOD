@@ -6,14 +6,14 @@ import 'package:http/http.dart';
 import '../../../../core/config/config.dart';
 import '../../../../core/locators/dependency_locator.dart';
 import '../../domain/entity/picture_of_day_entity.dart';
-import '../../domain/repository/picture_of_day_repository.dart';
+import '../../domain/repository/picture_of_day_remote_repository.dart';
 
-abstract class PictureOfDayRemoteRepository extends ApiAdapter<Client>
-    implements PictureOfDayRepository {
-  PictureOfDayRemoteRepository(super.httpClient);
+abstract class PictureOfDayRemoteRepositoryImpl extends ApiAdapter<Client>
+    implements PictureOfDayRemoteRepository {
+  PictureOfDayRemoteRepositoryImpl(super.httpClient);
 }
 
-class PictureOfDayApiImpl extends PictureOfDayRemoteRepository {
+class PictureOfDayApiImpl extends PictureOfDayRemoteRepositoryImpl {
   PictureOfDayApiImpl(super.httpClient);
 
   Uri getPathWithParams(Map<String, String> params) {

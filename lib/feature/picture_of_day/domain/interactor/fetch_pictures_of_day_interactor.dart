@@ -1,16 +1,16 @@
 import 'dart:developer';
 
-import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_local_repository.dart';
-import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_remote_repository.dart';
 import 'package:daily_astronomy/feature/picture_of_day/domain/entity/picture_of_day_entity.dart';
 
 import '../../../../core/adapter/connection_checker_adapter.dart';
 import '../../../../core/interactor/future_interactor.dart';
+import '../../data/repository/picture_of_day_local_repository.dart';
+import '../../data/repository/picture_of_day_remote_repository.dart';
 
 class FetchPicturesOfDayInteractor
     implements FutureInteractor<InputModel, List<PictureOfDayEntity>> {
   final PictureOfDayLocalRepositoryImpl _localStorage;
-  final PictureOfDayRemoteRepository _api;
+  final PictureOfDayRemoteRepositoryImpl _api;
   final ConnectionCheckerAdapter _connectionChecker;
 
   FetchPicturesOfDayInteractor(

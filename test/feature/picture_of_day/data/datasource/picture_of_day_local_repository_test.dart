@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_local_repository.dart';
+import 'package:daily_astronomy/feature/picture_of_day/data/repository/picture_of_day_local_repository.dart';
 import 'package:daily_astronomy/feature/picture_of_day/domain/entity/picture_of_day_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';

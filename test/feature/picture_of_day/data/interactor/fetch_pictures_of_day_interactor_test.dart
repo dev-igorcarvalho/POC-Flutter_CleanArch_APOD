@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:daily_astronomy/core/config/config.dart';
 import 'package:daily_astronomy/core/locators/dependency_locator.dart';
 import 'package:daily_astronomy/core/util/connection_checker.dart';
-import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_local_repository.dart';
-import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_remote_repository.dart';
+import 'package:daily_astronomy/feature/picture_of_day/data/repository/picture_of_day_local_repository.dart';
+import 'package:daily_astronomy/feature/picture_of_day/data/repository/picture_of_day_remote_repository.dart';
 import 'package:daily_astronomy/feature/picture_of_day/domain/entity/picture_of_day_entity.dart';
 import 'package:daily_astronomy/feature/picture_of_day/domain/interactor/fetch_pictures_of_day_interactor.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -26,7 +26,7 @@ final InputModel input = InputModel(now.subtract(Duration(days: 10)), now);
 @GenerateMocks([Client, ConnectionChecker, Box<PictureOfDayEntity>])
 void main() {
   final MockClient client = MockClient();
-  final PictureOfDayRemoteRepository api = PictureOfDayApiImpl(client);
+  final PictureOfDayRemoteRepositoryImpl api = PictureOfDayApiImpl(client);
   final MockConnectionChecker connectionChecker = MockConnectionChecker();
   final MockBox<PictureOfDayEntity> mockBox = MockBox();
   final PictureOfDayLocalRepositoryImpl cache =
