@@ -2,13 +2,17 @@ import 'package:daily_astronomy/core/data/datasource/local/local_cache.dart';
 import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_datasource.dart';
 import 'package:hive/hive.dart';
 
-import '../../../../core/data/datasource/local/local_storage_adapter.dart';
+import '../../../../core/adapter/local_storage_adapter.dart';
 import '../../domain/entity/picture_of_day_entity.dart';
 
-class PictureOfDayLocalStorage
+abstract class PictureOfDayLocalStorage
     extends LocalStorageAdapter<Box<PictureOfDayEntity>>
     implements PictureOfDayDataSource, LocalCache<PictureOfDayEntity> {
   PictureOfDayLocalStorage(super.localStorage);
+}
+
+class PictureOfDayLocalStorageImpl extends PictureOfDayLocalStorage {
+  PictureOfDayLocalStorageImpl(super.localStorage);
 
   @override
   Future<List<PictureOfDayEntity>> fetchPicturesFromDateRange(
