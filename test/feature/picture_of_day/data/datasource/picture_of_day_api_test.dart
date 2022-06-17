@@ -22,7 +22,7 @@ void main() {
     test('Should call selected api and return a list of PictureOfDayEntity',
         () async {
       final MockClient client = MockClient();
-      final PictureOfDayApi api = PictureOfDayApi(client);
+      final PictureOfDayApiImpl api = PictureOfDayApiImpl(client);
       var startDate = DateTime.now().subtract(Duration(days: 10));
       when(client.get(any, headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
