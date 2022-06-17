@@ -1,3 +1,3 @@
-abstract class Interactor<Input> {
+abstract class VoidInteractor<Input> {
   execute(Input input);
 }

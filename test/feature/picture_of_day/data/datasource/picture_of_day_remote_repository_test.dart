@@ -1,6 +1,6 @@
 import 'package:daily_astronomy/core/config/config.dart';
 import 'package:daily_astronomy/core/locators/dependency_locator.dart';
-import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_api.dart';
+import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_remote_repository.dart';
 import 'package:daily_astronomy/feature/picture_of_day/domain/entity/picture_of_day_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
@@ -8,7 +8,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../helper/json_reader.dart';
-import 'picture_of_day_api_test.mocks.dart';
+import 'picture_of_day_remote_repository_test.mocks.dart';
 
 @GenerateMocks([Client])
 void main() {

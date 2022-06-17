@@ -3,36 +3,36 @@ import 'dart:convert';
 import 'package:daily_astronomy/core/config/config.dart';
 import 'package:daily_astronomy/core/locators/dependency_locator.dart';
 import 'package:daily_astronomy/core/util/connection_checker.dart';
-import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_api.dart';
-import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_local_storage.dart';
-import 'package:daily_astronomy/feature/picture_of_day/data/repository/picture_of_day_repository_impl.dart';
+import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_local_repository.dart';
+import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_remote_repository.dart';
 import 'package:daily_astronomy/feature/picture_of_day/domain/entity/picture_of_day_entity.dart';
-import 'package:daily_astronomy/feature/picture_of_day/domain/repository/picture_of_day_repository.dart';
+import 'package:daily_astronomy/feature/picture_of_day/domain/interactor/fetch_pictures_of_day_interactor.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart';
-import 'package:http/src/client.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../helper/json_reader.dart';
-import 'picture_of_day_api_repository_test.mocks.dart';
+import 'fetch_pictures_of_day_interactor_test.mocks.dart';
 
-List<PictureOfDayEntity> _fixture =
+final List<PictureOfDayEntity> _fixture =
     (jsonDecode(getJsonFromFile('pictureOfDayListFixture.json')) as List)
         .map((e) => PictureOfDayEntity.fromJson(e as Map<String, dynamic>))
         .toList();
-DateTime startDate = DateTime.now().subtract(Duration(days: 10));
+DateTime now = DateTime.now();
+final InputModel input = InputModel(now.subtract(Duration(days: 10)), now);
 
 @GenerateMocks([Client, ConnectionChecker, Box<PictureOfDayEntity>])
 void main() {
   final MockClient client = MockClient();
-  final PictureOfDayApi api = PictureOfDayApiImpl(client);
+  final PictureOfDayRemoteRepository api = PictureOfDayApiImpl(client);
   final MockConnectionChecker connectionChecker = MockConnectionChecker();
   final MockBox<PictureOfDayEntity> mockBox = MockBox();
-  final PictureOfDayLocalStorage cache = PictureOfDayLocalStorageImpl(mockBox);
-  final PictureOfDayRepository repository =
-      PictureOfDayRepositoryImpl(cache, api, connectionChecker);
+  final PictureOfDayLocalRepositoryImpl cache =
+      PictureOfDayLocalStorageImpl(mockBox);
+  final FetchPicturesOfDayInteractor repository =
+      FetchPicturesOfDayInteractor(cache, api, connectionChecker);
 
   Config config = Config(Api('https://api.nasa.gov/planetary/apod',
       'tB4U40zQLjlFoa6b26lTgbfDzhWzFfi8gaxe9pzI'));
@@ -55,8 +55,7 @@ void main() {
       late final List<PictureOfDayEntity> result;
       setUpAll(() async {
         when(connectionChecker.hasConnection()).thenAnswer((_) async => true);
-        result =
-            await repository.fetchPicturesFromDateRange(startDate: startDate);
+        result = await repository.execute(input);
       });
       test('Should return a list of PictureOfDay from api call', () async {
         expect(result, isA<List<PictureOfDayEntity>>());
@@ -74,8 +73,7 @@ void main() {
       late final List<PictureOfDayEntity> result;
       setUpAll(() async {
         when(connectionChecker.hasConnection()).thenAnswer((_) async => false);
-        result =
-            await repository.fetchPicturesFromDateRange(startDate: startDate);
+        result = await repository.execute(input);
       });
       test('Should call local storage when there is no internet connection',
           () async {

@@ -1,19 +1,19 @@
 import 'dart:convert';
 
 import 'package:daily_astronomy/core/adapter/api_adapter.dart';
-import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_datasource.dart';
 import 'package:http/http.dart';
 
 import '../../../../core/config/config.dart';
 import '../../../../core/locators/dependency_locator.dart';
 import '../../domain/entity/picture_of_day_entity.dart';
+import '../../domain/repository/picture_of_day_repository.dart';
 
-abstract class PictureOfDayApi extends ApiAdapter<Client>
-    implements PictureOfDayDataSource {
-  PictureOfDayApi(super.httpClient);
+abstract class PictureOfDayRemoteRepository extends ApiAdapter<Client>
+    implements PictureOfDayRepository {
+  PictureOfDayRemoteRepository(super.httpClient);
 }
 
-class PictureOfDayApiImpl extends PictureOfDayApi {
+class PictureOfDayApiImpl extends PictureOfDayRemoteRepository {
   PictureOfDayApiImpl(super.httpClient);
 
   Uri getPathWithParams(Map<String, String> params) {

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_local_storage.dart';
+import 'package:daily_astronomy/feature/picture_of_day/data/datasource/picture_of_day_local_repository.dart';
 import 'package:daily_astronomy/feature/picture_of_day/domain/entity/picture_of_day_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
@@ -8,7 +8,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../helper/json_reader.dart';
-import 'picture_of_day_local_storage_test.mocks.dart';
+import 'picture_of_day_local_repository_test.mocks.dart';
 
 @GenerateMocks([Box<PictureOfDayEntity>])
 void main() {
