@@ -33,6 +33,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   get_it: ^7.2.0
   json_serializable: ^6.2.0
+  json_annotation: ^4.5.0
   internet_connection_checker: ^0.0.1+4
   http: ^0.13.4
   hive: ^2.2.2
