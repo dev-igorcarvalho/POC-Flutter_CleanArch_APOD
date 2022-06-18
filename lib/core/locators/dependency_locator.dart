@@ -48,8 +48,8 @@ void _initPictureOfDay() {
       inject<PictureOfDayRemoteRepositoryImpl>(),
       inject<ConnectionChecker>()));
   inject.registerFactory(() => SearchPictureOfDayInteractor());
-  inject.registerFactory(() => GetPictureOfDayListEventHandler());
-  inject.registerFactory(() => SearchPictureOfDayListEventHandler());
+  inject.registerFactory(() => GetPictureOfDayListEventHandler(inject()));
+  inject.registerFactory(() => SearchPictureOfDayListEventHandler(inject()));
   inject.registerSingleton(
       () => PictureOfDayBloc(fecthHandler: inject(), searchHandler: inject()));
 }
