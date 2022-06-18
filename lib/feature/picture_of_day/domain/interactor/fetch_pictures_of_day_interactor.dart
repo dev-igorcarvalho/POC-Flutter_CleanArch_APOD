@@ -4,20 +4,23 @@ import 'package:daily_astronomy/feature/picture_of_day/domain/entity/picture_of_
 
 import '../../../../core/adapter/connection_checker_adapter.dart';
 import '../../../../core/interactor/future_interactor.dart';
-import '../../data/repository/picture_of_day_local_repository.dart';
-import '../../data/repository/picture_of_day_remote_repository.dart';
+import '../repository/picture_of_day_local_repository.dart';
+import '../repository/picture_of_day_remote_repository.dart';
 
 class FetchPicturesOfDayInteractor
-    implements FutureInteractor<InputModel, List<PictureOfDayEntity>> {
-  final PictureOfDayLocalRepositoryImpl _localStorage;
-  final PictureOfDayRemoteRepositoryImpl _api;
+    implements
+        FutureInteractor<FetchPicturesOfDayInteractorInput,
+            List<PictureOfDayEntity>> {
+  final PictureOfDayLocalRepository _localStorage;
+  final PictureOfDayRemoteRepository _api;
   final ConnectionCheckerAdapter _connectionChecker;
 
   FetchPicturesOfDayInteractor(
       this._localStorage, this._api, this._connectionChecker);
 
   @override
-  Future<List<PictureOfDayEntity>> execute(InputModel input) async {
+  Future<List<PictureOfDayEntity>> execute(
+      FetchPicturesOfDayInteractorInput input) async {
     bool hasConnection = await _connectionChecker.hasConnection();
     if (hasConnection) {
       log('Internet connection is fine, getting data from NASA APOD API');
@@ -34,9 +37,9 @@ class FetchPicturesOfDayInteractor
   }
 }
 
-class InputModel {
+class FetchPicturesOfDayInteractorInput {
   final DateTime startDate;
   final DateTime endDate;
 
-  InputModel(this.startDate, this.endDate);
+  FetchPicturesOfDayInteractorInput(this.startDate, this.endDate);
 }

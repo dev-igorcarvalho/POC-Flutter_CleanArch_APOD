@@ -1,20 +1,12 @@
 import 'dart:convert';
 
-import 'package:daily_astronomy/core/adapter/api_adapter.dart';
-import 'package:http/http.dart';
-
 import '../../../../core/config/config.dart';
 import '../../../../core/locators/dependency_locator.dart';
 import '../../domain/entity/picture_of_day_entity.dart';
 import '../../domain/repository/picture_of_day_remote_repository.dart';
 
-abstract class PictureOfDayRemoteRepositoryImpl extends ApiAdapter<Client>
-    implements PictureOfDayRemoteRepository {
-  PictureOfDayRemoteRepositoryImpl(super.httpClient);
-}
-
-class PictureOfDayApiImpl extends PictureOfDayRemoteRepositoryImpl {
-  PictureOfDayApiImpl(super.httpClient);
+class PictureOfDayRemoteRepositoryImpl extends PictureOfDayRemoteRepository {
+  PictureOfDayRemoteRepositoryImpl(super.api);
 
   Uri getPathWithParams(Map<String, String> params) {
     final Config config = inject<Config>();

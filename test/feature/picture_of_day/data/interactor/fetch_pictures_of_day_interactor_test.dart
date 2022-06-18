@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:daily_astronomy/core/config/config.dart';
 import 'package:daily_astronomy/core/locators/dependency_locator.dart';
 import 'package:daily_astronomy/core/util/connection_checker.dart';
-import 'package:daily_astronomy/feature/picture_of_day/data/repository/picture_of_day_local_repository.dart';
-import 'package:daily_astronomy/feature/picture_of_day/data/repository/picture_of_day_remote_repository.dart';
+import 'package:daily_astronomy/feature/picture_of_day/data/repository/picture_of_day_local_repository_impl.dart';
+import 'package:daily_astronomy/feature/picture_of_day/data/repository/picture_of_day_remote_repository_iplm.dart';
 import 'package:daily_astronomy/feature/picture_of_day/domain/entity/picture_of_day_entity.dart';
 import 'package:daily_astronomy/feature/picture_of_day/domain/interactor/fetch_pictures_of_day_interactor.dart';
+import 'package:daily_astronomy/feature/picture_of_day/domain/repository/picture_of_day_local_repository.dart';
+import 'package:daily_astronomy/feature/picture_of_day/domain/repository/picture_of_day_remote_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart';
@@ -21,16 +23,18 @@ final List<PictureOfDayEntity> _fixture =
         .map((e) => PictureOfDayEntity.fromJson(e as Map<String, dynamic>))
         .toList();
 DateTime now = DateTime.now();
-final InputModel input = InputModel(now.subtract(Duration(days: 10)), now);
+final FetchPicturesOfDayInteractorInput input =
+    FetchPicturesOfDayInteractorInput(now.subtract(Duration(days: 10)), now);
 
 @GenerateMocks([Client, ConnectionChecker, Box<PictureOfDayEntity>])
 void main() {
   final MockClient client = MockClient();
-  final PictureOfDayRemoteRepositoryImpl api = PictureOfDayApiImpl(client);
+  final PictureOfDayRemoteRepository api =
+      PictureOfDayRemoteRepositoryImpl(client);
   final MockConnectionChecker connectionChecker = MockConnectionChecker();
   final MockBox<PictureOfDayEntity> mockBox = MockBox();
-  final PictureOfDayLocalRepositoryImpl cache =
-      PictureOfDayLocalStorageImpl(mockBox);
+  final PictureOfDayLocalRepository cache =
+      PictureOfDayLocalRepositoryImpl(mockBox);
   final FetchPicturesOfDayInteractor repository =
       FetchPicturesOfDayInteractor(cache, api, connectionChecker);
 
