@@ -10,11 +10,12 @@ class GetPictureOfDayListEventHandler {
   GetPictureOfDayListEventHandler(this.fetchPicturesOfDayInteractor);
 
   handle(
-      GetPictureOfDayListEvent event, Emitter<PictureOfDayState> emit) async {
+      PictureOfDayFetchListEvent event, Emitter<PictureOfDayState> emit) async {
     DateTime now = DateTime.now();
     final FetchPicturesOfDayInteractorInput input =
         FetchPicturesOfDayInteractorInput(
             now.subtract(Duration(days: 10)), now);
+    await Future.delayed(Duration(seconds: 3));
     final result = await fetchPicturesOfDayInteractor.execute(input);
     emit(PictureOfDayLoaded(result));
   }
@@ -25,7 +26,7 @@ class SearchPictureOfDayListEventHandler {
 
   SearchPictureOfDayListEventHandler(this.searchPictureOfDayInteractor);
 
-  handle(SearchPictureOfDayEvent event, Emitter<PictureOfDayState> emit) async {
+  handle(PictureOfDaySearchEvent event, Emitter<PictureOfDayState> emit) async {
     throw UnimplementedError();
   }
 }

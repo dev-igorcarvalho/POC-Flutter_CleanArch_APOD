@@ -11,9 +11,10 @@ class PictureOfDayBloc extends Bloc<PictureOfDayEvent, PictureOfDayState> {
       {required GetPictureOfDayListEventHandler fecthHandler,
       required SearchPictureOfDayListEventHandler searchHandler})
       : super(PictureOfDayInitial()) {
-    on<GetPictureOfDayListEvent>(
+    on<PictureOfDayFetchListEvent>(
         (event, emit) => fecthHandler.handle(event, emit));
-    on<SearchPictureOfDayEvent>(
+    on<PictureOfDaySearchEvent>(
         (event, emit) => searchHandler.handle(event, emit));
+    on<PictureOfDayLoadingEvent>((event, emit) => emit(PictureOfDayLoading()));
   }
 }
