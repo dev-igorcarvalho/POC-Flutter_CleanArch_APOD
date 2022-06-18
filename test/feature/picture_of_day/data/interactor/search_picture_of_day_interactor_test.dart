@@ -19,9 +19,10 @@ void main() {
     setUpAll(() => interactor = SearchPictureOfDayInteractor());
     group('Seaerch by date', () {
       late final PictureOfDayEntity result;
-      late final InputModel input;
+      late final SearchPictureOfDayInteractorInput input;
       setUpAll(() {
-        input = InputModel(date: _date, source: _fixture);
+        input =
+            SearchPictureOfDayInteractorInput(date: _date, source: _fixture);
         result = interactor.execute(input);
       });
       test('Should return a PictureOfDAyEntity when a date is searched', () {
@@ -36,9 +37,10 @@ void main() {
     });
     group('Seaerch by date', () {
       late final PictureOfDayEntity result;
-      late final InputModel input;
+      late final SearchPictureOfDayInteractorInput input;
       setUpAll(() {
-        input = InputModel(title: _title, source: _fixture);
+        input =
+            SearchPictureOfDayInteractorInput(title: _title, source: _fixture);
         result = interactor.execute(input);
       });
       test('Should return a PictureOfDAyEntity when a title is searched', () {

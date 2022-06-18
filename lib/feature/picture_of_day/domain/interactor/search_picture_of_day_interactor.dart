@@ -3,17 +3,19 @@ import 'package:daily_astronomy/feature/picture_of_day/domain/entity/picture_of_
 import '../../../../core/interactor/interactor.dart';
 
 class SearchPictureOfDayInteractor
-    implements Interactor<InputModel, PictureOfDayEntity> {
+    implements
+        Interactor<SearchPictureOfDayInteractorInput, PictureOfDayEntity> {
   @override
-  PictureOfDayEntity execute(InputModel input) {
+  PictureOfDayEntity execute(SearchPictureOfDayInteractorInput input) {
     throw UnimplementedError();
   }
 }
 
-class InputModel {
+class SearchPictureOfDayInteractorInput {
   final List<PictureOfDayEntity> source;
   final String? title;
   final DateTime? date;
 
-  InputModel({this.title, this.date, required this.source});
+  SearchPictureOfDayInteractorInput(
+      {this.title, this.date, required this.source});
 }
