@@ -50,6 +50,6 @@ void _initPictureOfDay() {
   inject.registerFactory(() => SearchPictureOfDayInteractor());
   inject.registerFactory(() => GetPictureOfDayListEventHandler(inject()));
   inject.registerFactory(() => SearchPictureOfDayListEventHandler(inject()));
-  inject.registerSingleton(
+  inject.registerFactory(
       () => PictureOfDayBloc(fecthHandler: inject(), searchHandler: inject()));
 }
