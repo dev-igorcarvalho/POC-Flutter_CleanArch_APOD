@@ -27,19 +27,18 @@ void main() {
 
       mockBox = MockBox();
       cache = PictureOfDayLocalRepositoryImpl(mockBox);
+      when(mockBox.clear()).thenAnswer((_) async => 1);
+      when(mockBox.addAll(fixture)).thenAnswer((_) async => [1, 2, 3]);
     });
     test(
         'Should call local storage and return a cached list of PictureOfDayEntity',
         () async {
-      when(cache.localStorage.values).thenAnswer((_) => fixture);
+      when(mockBox.values).thenAnswer((_) => fixture);
 
       expect(await cache.fetchPicturesFromDateRange(startDate: startDate),
           isA<List<PictureOfDayEntity>>());
     });
     test('Should return true if values are chaced', () async {
-      when(cache.localStorage.addAll(fixture))
-          .thenAnswer((_) async => [1, 2, 3]);
-
       expect(await cache.cachePicturesOfDay(pictures: fixture), isA<bool>());
     });
   });

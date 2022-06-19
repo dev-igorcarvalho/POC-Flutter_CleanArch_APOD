@@ -14,6 +14,7 @@ class PictureOfDayLocalRepositoryImpl extends PictureOfDayLocalRepository {
   @override
   Future<bool> cachePicturesOfDay(
       {required List<PictureOfDayEntity> pictures}) async {
+    await localStorage.clear();
     Iterable<int> addAll = await localStorage.addAll(pictures);
     if (addAll.isEmpty) return false;
     return true;
