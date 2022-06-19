@@ -49,21 +49,25 @@ void main() {
         'Content-Type': 'application/json; charset=UTF-8',
       })).thenAnswer((_) async =>
           Response(getJsonFromFile('pictureOfDayListFixture.json'), 200));
-      when(cache.localStorage.addAll(_fixture))
-          .thenAnswer((_) async => [1, 2, 3]);
-      when(cache.localStorage.values).thenAnswer((_) => _fixture);
+      when(mockBox.clear()).thenAnswer((_) async => 5);
+      when(mockBox.addAll(any)).thenAnswer((_) async => [1, 2, 3]);
+      when(mockBox.values).thenAnswer((_) => _fixture);
     });
+
     group(
         'Fetch picture of the day list from repository with internet connection',
         () {
       late final List<PictureOfDayEntity> result;
+
       setUpAll(() async {
         when(connectionChecker.hasConnection()).thenAnswer((_) async => true);
         result = await repository.execute(input);
       });
+
       test('Should return a list of PictureOfDay from api call', () async {
         expect(result, isA<List<PictureOfDayEntity>>());
       });
+
       test('Should call api when there is internet connection', () async {
         when(connectionChecker.hasConnection()).thenAnswer((_) async => true);
         verify(client.get(any, headers: <String, String>{
@@ -71,18 +75,22 @@ void main() {
         })).called(1);
       });
     });
+
     group(
         'Fetch picture of the day list from repository without internet connection',
         () {
       late final List<PictureOfDayEntity> result;
+
       setUpAll(() async {
         when(connectionChecker.hasConnection()).thenAnswer((_) async => false);
         result = await repository.execute(input);
       });
+
       test('Should call local storage when there is no internet connection',
           () async {
         expect(result, isA<List<PictureOfDayEntity>>());
       });
+
       test('Should call local storage when there is no internet connection',
           () async {
         expect(result, isA<List<PictureOfDayEntity>>());

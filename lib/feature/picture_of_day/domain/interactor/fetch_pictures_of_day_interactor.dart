@@ -24,9 +24,9 @@ class FetchPicturesOfDayInteractor
     bool hasConnection = await _connectionChecker.hasConnection();
     if (hasConnection) {
       log('Internet connection is fine, getting data from NASA APOD API');
-      var result = await _api.fetchPicturesFromDateRange(
+      List<PictureOfDayEntity> result = await _api.fetchPicturesFromDateRange(
           startDate: input.startDate, endDate: input.endDate);
-      // _localStorage.cachePicturesOfDay(pictures: result);
+      _localStorage.cachePicturesOfDay(pictures: result);
       return result;
     } else {
       log('No internet connection, getting data from local cache');
