@@ -15,6 +15,7 @@ import '../../feature/picture_of_day/domain/entity/picture_of_day_entity.dart';
 
 final GetIt inject = GetIt.instance;
 
+/// This file is responsible for managing all the dependency injections
 Future init() async {
   await _initLocalStorage();
   _initCore();

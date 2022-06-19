@@ -8,6 +8,7 @@ class ConnectionChecker
     implements HasConnection {
   ConnectionChecker(super.connectionChecker);
 
+  ///Verify if the mobile device has internet access
   @override
   Future<bool> hasConnection() async {
     return await connectionChecker.hasConnection;

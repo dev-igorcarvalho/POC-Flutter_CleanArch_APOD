@@ -18,6 +18,7 @@ class FetchPicturesOfDayInteractor
   FetchPicturesOfDayInteractor(
       this._localStorage, this._api, this._connectionChecker);
 
+  ///Retrieve a list of List<PictureOfDayEntity> form api or local storage depending on internet connection
   @override
   Future<List<PictureOfDayEntity>> execute(
       FetchPicturesOfDayInteractorInput input) async {

@@ -3,6 +3,7 @@ import 'package:http/http.dart';
 
 import '../../../../core/adapter/api_adapter.dart';
 
+///Interface to specify the use of PictureOfDayRemoteRepository
 abstract class PictureOfDayRemoteRepository extends ApiAdapter<Client>
     implements PictureOfDayRepository {
   PictureOfDayRemoteRepository(super.api);

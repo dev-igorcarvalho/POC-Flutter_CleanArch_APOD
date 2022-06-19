@@ -8,6 +8,7 @@ import '../../domain/repository/picture_of_day_remote_repository.dart';
 class PictureOfDayRemoteRepositoryImpl extends PictureOfDayRemoteRepository {
   PictureOfDayRemoteRepositoryImpl(super.api);
 
+  ///Generate an URI with APOD API specifications
   Uri getPathWithParams(Map<String, String> params) {
     final Config config = inject<Config>();
     String url = '${config.api.url}?api_key=${config.api.key}';
@@ -17,6 +18,7 @@ class PictureOfDayRemoteRepositoryImpl extends PictureOfDayRemoteRepository {
     return Uri.parse(url);
   }
 
+  ///Fetch all elements of the specified api in data range
   @override
   Future<List<PictureOfDayEntity>> fetchPicturesFromDateRange(
       {required DateTime startDate, DateTime? endDate}) async {

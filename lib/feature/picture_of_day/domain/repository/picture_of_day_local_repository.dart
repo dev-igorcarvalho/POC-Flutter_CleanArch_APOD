@@ -5,6 +5,7 @@ import '../../../../core/adapter/local_storage_adapter.dart';
 import '../../../../core/data/datasource/local/local_cache.dart';
 import '../entity/picture_of_day_entity.dart';
 
+///Interface to specify the use of PictureOfDayLocalRepository
 abstract class PictureOfDayLocalRepository
     extends LocalStorageAdapter<Box<PictureOfDayEntity>>
     implements PictureOfDayRepository, LocalCache<PictureOfDayEntity> {

@@ -11,6 +11,7 @@ class FilterPictureOfDayListInteractor
 
   FilterPictureOfDayListInteractor(this.cache);
 
+  ///Filter a List<PictureOfDayEntity> to show results that matches the input passed
   @override
   List<PictureOfDayEntity> execute(SearchPictureOfDayInteractorInput input) {
     final List<PictureOfDayEntity> cached = cache.localStorage.values.toList();
