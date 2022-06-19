@@ -1,7 +1,7 @@
 import 'package:daily_astronomy/core/config/config.dart';
 import 'package:daily_astronomy/core/util/connection_checker.dart';
 import 'package:daily_astronomy/feature/picture_of_day/domain/interactor/fetch_pictures_of_day_interactor.dart';
-import 'package:daily_astronomy/feature/picture_of_day/domain/interactor/search_picture_of_day_interactor.dart';
+import 'package:daily_astronomy/feature/picture_of_day/domain/interactor/filter_picture_of_day_list_interactor.dart';
 import 'package:daily_astronomy/feature/picture_of_day/presentation/bloc/picture_of_day_bloc.dart';
 import 'package:daily_astronomy/feature/picture_of_day/presentation/bloc/picture_of_day_handler.dart';
 import 'package:get_it/get_it.dart';
@@ -47,7 +47,8 @@ void _initPictureOfDay() {
       inject<PictureOfDayLocalRepositoryImpl>(),
       inject<PictureOfDayRemoteRepositoryImpl>(),
       inject<ConnectionChecker>()));
-  inject.registerFactory(() => SearchPictureOfDayInteractor());
+  inject.registerFactory(() => FilterPictureOfDayListInteractor(
+      inject<PictureOfDayLocalRepositoryImpl>()));
   inject.registerFactory(() => GetPictureOfDayListEventHandler(inject()));
   inject.registerFactory(() => SearchPictureOfDayListEventHandler(inject()));
   inject.registerFactory(
