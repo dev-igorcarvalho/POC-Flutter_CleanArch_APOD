@@ -8,8 +8,8 @@ class PictureOfDayLoadingEvent extends PictureOfDayEvent {}
 class PictureOfDayFetchListEvent extends PictureOfDayEvent {}
 
 class PictureOfDaySearchEvent extends PictureOfDayEvent {
-  final String title;
-  final DateTime date;
+  final String? title;
+  final DateTime? date;
 
-  PictureOfDaySearchEvent(this.title, this.date);
+  PictureOfDaySearchEvent({this.title, this.date});
 }
